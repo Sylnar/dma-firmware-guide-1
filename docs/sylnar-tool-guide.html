@@ -1,0 +1,35 @@
+        <!doctype html>
+        <html lang="en">
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width,initial-scale=1">
+          <title>Sylnar Tool for FPGA DMA Board Management | Guide</title>
+          <meta name="description" content="Sylnar Tool guide: detect FPGA boards, read Device DNA, install CH347 and FT601 drivers, flash firmware, and test DMA speed on Windows.">
+          <link rel="canonical" href="https://nexusforge-dev.github.io/dma-firmware-guide/sylnar-tool-guide.html">
+          <meta name="robots" content="index,follow">
+          <meta property="og:title" content="Sylnar Tool for FPGA DMA Board Management | Guide">
+          <meta property="og:description" content="Sylnar Tool guide: detect FPGA boards, read Device DNA, install CH347 and FT601 drivers, flash firmware, and test DMA speed on Windows.">
+          <meta property="og:type" content="article">
+          <meta property="og:url" content="https://nexusforge-dev.github.io/dma-firmware-guide/sylnar-tool-guide.html">
+          <link rel="stylesheet" href="style.css">
+          <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Sylnar Tool for FPGA DMA board management", "description": "Sylnar Tool guide: detect FPGA boards, read Device DNA, install CH347 and FT601 drivers, flash firmware, and test DMA speed on Windows.", "url": "https://nexusforge-dev.github.io/dma-firmware-guide/sylnar-tool-guide.html", "author": {"@type": "Organization", "name": "NexusForge"}}</script>
+        </head>
+        <body><main>
+          <div class="logo" aria-hidden="true">S</div>
+          <p class="eyebrow">NexusForge technical guides</p>
+          <h1>Sylnar Tool for FPGA DMA board management</h1>
+          <p class="intro">Sylnar Tool is a standalone Windows 10/11 application for FPGA DMA board detection, DNA reading, firmware flashing, driver installation, and DMA speed testing. No Vivado installation is required.</p>
+          <section><h2>Install and detect</h2>
+              <p>Download <strong>Sylnar.exe</strong> from the <a href="https://github.com/NexusForge-dev/NexusForge/releases/latest">official latest GitHub release</a> and run it as Administrator on the second PC. Install the CH347 driver for JTAG and the FT601 driver for DMA data from the Drivers tab.</p>
+              <p>Connect the board over USB and select Detect Board. The application reports the device name, IDCODE, and Device DNA. Copy the DNA when a board-specific firmware build is required.</p>
+            </section>
+<section><h2>Flash and verify</h2>
+              <p>Select the correct .bin firmware for persistent SPI flash or a .bit file for volatile SRAM. Wait for sector erase, write, and verify to complete. Power cycle the target PC after a successful flash.</p>
+              <p>Sylnar Tool supports detection and flashing across Artix-7 boards. Kintex-7 boards can be detected but cannot be SPI flashed. SylnarCore firmware compatibility is a separate check, currently XC7A75T and XC7A100T board classes.</p>
+            </section>
+<section><h2>Current documentation and downloads</h2>
+              <p>The <a href="https://sylnar.com/sylnar-tool">Sylnar Tool product page</a> links the official releases and current quick-start instructions. Existing installations also check for updates automatically on launch.</p>
+            </section>
+          <footer>Independent technical reference. Product names and trademarks belong to their respective owners. Current product details: <a href="https://sylnar.com">Sylnar.com</a>.</footer>
+        </main></body>
+        </html>

@@ -49,18 +49,36 @@ the difference between IOMMU presence and IOMMU enforcement.
 If you do not know what a TLP, BAR, or capability pointer is, read the PCIe
 Base Specification first.
 
-## Companion tool: NexusForge
+## Companion tool: Sylnar Tool
 
-[NexusForge](https://github.com/NexusForge-dev/NexusForge) is the Windows GUI
-flasher this guide recommends. It bundles OpenOCD plus the CH347 driver and
-handles board detection, DNA read, and SPI flash write in one click. Use it
-instead of raw OpenOCD or vendor CLIs.
+[Sylnar Tool](https://sylnar.com/sylnar-tool) is the Windows GUI for FPGA DMA
+board management. It detects boards, reads Device DNA, installs CH347 and FT601
+drivers, flashes firmware, and tests DMA speed. Download it from the
+[official NexusForge releases](https://github.com/NexusForge-dev/NexusForge/releases/latest).
+
+## Companion web guides
+
+The [DMA firmware guide collection](https://nexusforge-dev.github.io/dma-firmware-guide/)
+includes focused, linkable references for:
+
+- [Artix-7 DMA firmware compatibility and flashing](https://nexusforge-dev.github.io/dma-firmware-guide/artix-7-dma-firmware.html)
+- [Sylnar Tool board management](https://nexusforge-dev.github.io/dma-firmware-guide/sylnar-tool-guide.html)
+- [Second-PC DMA setup](https://nexusforge-dev.github.io/dma-firmware-guide/second-pc-dma-setup.html)
+- [CS2 DMA cheats and ESP](https://nexusforge-dev.github.io/dma-firmware-guide/cs2-dma-cheats.html)
+- [Wardogs ESP and DMA overlay](https://nexusforge-dev.github.io/dma-firmware-guide/wardogs-esp-guide.html)
+
+Current Sylnar resources:
+
+- [SylnarCore Artix-7 DMA firmware](https://sylnar.com/sylnarcore)
+- [Sylnar CS2 cheats and ESP](https://sylnar.com/cs2)
+- [Sylnar Wardogs ESP](https://sylnar.com/wardogs)
+- [DMA board and BIOS compatibility](https://sylnar.com/compatibility)
 
 ## Community
 
-Join the Nexus Discord for questions, build help, and future revisions:
+Join Sylnar on Discord for questions, build help, and future revisions:
 
-**[discord.gg/y49jPf8T5z](https://discord.gg/y49jPf8T5z)**
+**[discord.gg/sylnar](https://discord.gg/sylnar)**
 
 ## Updates
 

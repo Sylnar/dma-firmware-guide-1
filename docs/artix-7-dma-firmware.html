@@ -1,0 +1,35 @@
+        <!doctype html>
+        <html lang="en">
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width,initial-scale=1">
+          <title>Artix-7 DMA Firmware Compatibility & Flashing | Sylnar</title>
+          <meta name="description" content="Artix-7 DMA firmware guide for XC7A75T and XC7A100T boards: compatibility, FPGA DNA, Sylnar Tool flashing, and second-PC checks.">
+          <link rel="canonical" href="https://nexusforge-dev.github.io/dma-firmware-guide/artix-7-dma-firmware.html">
+          <meta name="robots" content="index,follow">
+          <meta property="og:title" content="Artix-7 DMA Firmware Compatibility & Flashing | Sylnar">
+          <meta property="og:description" content="Artix-7 DMA firmware guide for XC7A75T and XC7A100T boards: compatibility, FPGA DNA, Sylnar Tool flashing, and second-PC checks.">
+          <meta property="og:type" content="article">
+          <meta property="og:url" content="https://nexusforge-dev.github.io/dma-firmware-guide/artix-7-dma-firmware.html">
+          <link rel="stylesheet" href="style.css">
+          <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Artix-7 DMA firmware compatibility and flashing", "description": "Artix-7 DMA firmware guide for XC7A75T and XC7A100T boards: compatibility, FPGA DNA, Sylnar Tool flashing, and second-PC checks.", "url": "https://nexusforge-dev.github.io/dma-firmware-guide/artix-7-dma-firmware.html", "author": {"@type": "Organization", "name": "NexusForge"}}</script>
+        </head>
+        <body><main>
+          <div class="logo" aria-hidden="true">S</div>
+          <p class="eyebrow">NexusForge technical guides</p>
+          <h1>Artix-7 DMA firmware compatibility and flashing</h1>
+          <p class="intro">SylnarCore firmware targets the XC7A75T and XC7A100T board classes. Correct board identification and a compatibility check come before any firmware purchase or flash.</p>
+          <section><h2>Check the board first</h2>
+              <p>Record the FPGA part, board layout, seller link, and Device Manager enumeration. CaptainDMA and other layouts need staff confirmation before purchase. Do not assume a board is compatible because its connector or FPGA family looks similar.</p>
+              <p>SylnarCore is keyed to a single board and is a separate one-time purchase from the loader subscription. Current anti-cheat coverage is listed on the <a href="https://sylnar.com/sylnarcore">SylnarCore firmware page</a>.</p>
+            </section>
+<section><h2>Use Sylnar Tool for detection and flashing</h2>
+              <p><a href="https://sylnar.com/sylnar-tool">Sylnar Tool</a> detects supported Xilinx 7-series FPGAs over JTAG, reads the 57-bit Device DNA, installs CH347 and FT601 drivers, and flashes .bin files to SPI or .bit files to SRAM. Run it as Administrator on the second Windows PC.</p>
+              <p>After selecting Detect Board, copy the DNA for the firmware provider. Flash only the firmware built for the exact board, wait for erase, write, and verify to complete, then power cycle the target PC.</p>
+            </section>
+<section><h2>Review the full platform</h2>
+              <p>Compatibility also depends on the motherboard, CPU, BIOS, IOMMU / VT-d / AMD-Vi, Kernel DMA Protection, PCIe ACS, Above 4G Decoding, Resizable BAR, ASPM, and slot lane sharing. Use the <a href="https://sylnar.com/compatibility">Sylnar compatibility checklist</a> before spending money.</p>
+            </section>
+          <footer>Independent technical reference. Product names and trademarks belong to their respective owners. Current product details: <a href="https://sylnar.com">Sylnar.com</a>.</footer>
+        </main></body>
+        </html>

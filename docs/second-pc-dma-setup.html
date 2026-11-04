@@ -1,0 +1,40 @@
+        <!doctype html>
+        <html lang="en">
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width,initial-scale=1">
+          <title>Second-PC DMA Setup Checklist for CS2 & Wardogs | Sylnar</title>
+          <meta name="description" content="Second-PC DMA setup checklist: Artix-7 hardware, Makcu input, capture path, BIOS checks, Sylnar Tool, and compatibility review.">
+          <link rel="canonical" href="https://nexusforge-dev.github.io/dma-firmware-guide/second-pc-dma-setup.html">
+          <meta name="robots" content="index,follow">
+          <meta property="og:title" content="Second-PC DMA Setup Checklist for CS2 & Wardogs | Sylnar">
+          <meta property="og:description" content="Second-PC DMA setup checklist: Artix-7 hardware, Makcu input, capture path, BIOS checks, Sylnar Tool, and compatibility review.">
+          <meta property="og:type" content="article">
+          <meta property="og:url" content="https://nexusforge-dev.github.io/dma-firmware-guide/second-pc-dma-setup.html">
+          <link rel="stylesheet" href="style.css">
+          <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Second-PC DMA setup checklist", "description": "Second-PC DMA setup checklist: Artix-7 hardware, Makcu input, capture path, BIOS checks, Sylnar Tool, and compatibility review.", "url": "https://nexusforge-dev.github.io/dma-firmware-guide/second-pc-dma-setup.html", "author": {"@type": "Organization", "name": "NexusForge"}}</script>
+        </head>
+        <body><main>
+          <div class="logo" aria-hidden="true">S</div>
+          <p class="eyebrow">NexusForge technical guides</p>
+          <h1>Second-PC DMA setup checklist</h1>
+          <p class="intro">Sylnar CS2 and Wardogs use a second Windows PC for DMA hardware access and tooling. Prepare the hardware path and validate compatibility before buying firmware or a subscription.</p>
+          <section><h2>Required hardware</h2>
+              <ul>
+                <li>A second Windows PC with a spare PCIe slot</li>
+                <li>A supported Artix-7 DMA capture card</li>
+                <li>A Makcu input device</li>
+                <li>A monitor or capture path for the second machine</li>
+              </ul>
+              <p>The gaming PC remains dedicated to the game. The second PC runs the Sylnar tooling and communicates with the DMA board.</p>
+            </section>
+<section><h2>Validate BIOS and board compatibility</h2>
+              <p>Check IOMMU or VT-d / AMD-Vi, Kernel DMA Protection, PCIe ACS, Above 4G Decoding, Resizable BAR, ASPM, BIOS version, and slot lane sharing. Newer X670, X870, X870E, Z790, and Z890 boards may need additional review, but strict defaults do not automatically mean incompatibility.</p>
+              <p>Use <a href="https://sylnar.com/sylnar-tool">Sylnar Tool</a> to install CH347 and FT601 drivers, detect the board, and copy Device DNA. Then submit the <a href="https://sylnar.com/compatibility">compatibility checklist</a>.</p>
+            </section>
+<section><h2>Continue with the full guide</h2>
+              <p>The <a href="https://sylnar.com/guides/second-pc-dma-setup">official second-PC DMA setup guide</a> covers the full sequence and links to current CS2 and Wardogs product requirements.</p>
+            </section>
+          <footer>Independent technical reference. Product names and trademarks belong to their respective owners. Current product details: <a href="https://sylnar.com">Sylnar.com</a>.</footer>
+        </main></body>
+        </html>
