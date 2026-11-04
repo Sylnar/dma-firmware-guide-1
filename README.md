@@ -54,7 +54,7 @@ Base Specification first.
 [Sylnar Tool](https://sylnar.com/sylnar-tool) is the Windows GUI for FPGA DMA
 board management. It detects boards, reads Device DNA, installs CH347 and FT601
 drivers, flashes firmware, and tests DMA speed. Download it from the
-[official NexusForge releases](https://github.com/NexusForge-dev/NexusForge/releases/latest).
+[official NexusForge releases](https://github.com/Sylnar/NexusForge/releases/tag/v1.1.39).
 
 ## Companion web guides
 
