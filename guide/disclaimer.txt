@@ -1,0 +1,36 @@
+Disclaimer
+This document is provided for educational and research purposes only.
+The information in this guide describes general engineering principles of PCIe device emulation on FPGA
+hardware. It is intended for legitimate purposes including, without limitation:
+Hardware reverse-engineering research on devices the reader legally owns or has authorisation to
+inspect.
+Custom FPGA-based test instrumentation and fixtures for development workflows.
+Hardware-in-the-loop simulation of PCIe peripherals for driver development.
+Security research conducted with explicit authorisation from the system owner.
+Academic study of bus-level protocols, configuration space semantics, and storage stack behaviour.
+No warranty
+The author makes no warranty as to the accuracy, completeness, fitness for any particular purpose,
+currency, or absence of errors in this material. The information is provided "as is". The reader uses it
+entirely at their own risk.
+No liability
+The author accepts no liability for any direct, indirect, incidental, special, consequential, or exemplary
+damages of any kind arising from or in connection with the reader's use of the techniques, code, scripts,
+register values, command sequences, or other content described in this document. This includes (without
+limitation) damage to hardware, loss of data, system instability, voided manufacturer warranties,
+regulatory issues, breach of contract, or any third-party claim.
+Reader responsibilities
+The reader is solely responsible for ensuring that any use of the techniques described in this document
+complies with:
+All applicable local, national, and international laws and regulations.
+The terms of service of any software the reader interacts with.
+The end-user licence agreements and warranties of any hardware the reader modifies, inspects, or
+emulates.
+The policies and authorisation requirements of any system, network, or platform on which the
+reader's firmware is loaded.
+The author does not endorse and is not responsible for any use of this material in violation of any of the
+above.
+Distribution
+Redistribution and modification of this document for non-commercial purposes is permitted provided that
+this Disclaimer remains attached, unmodified, to any derivative work. Commercial redistribution requires
+the prior written consent of the author.
+By reading further you acknowledge that you have read, understood, and accept the terms of this Disclaimer.

@@ -1,95 +1,73 @@
-# PCIe DMA Firmware Engineering Guide
+# PCIe DMA Firmware Engineering Guide - Version 2
 
-A practical engineering reference for building 1:1 device emulation firmware on
-Artix-7 FPGAs. Covers configuration space, capability chains, BDF stability,
-MSI cadence, IOMMU realities, AHCI / SATA emulation, the Windows storage stack
-walls, Vivado build reality, per-board identity, flashing, and live verification.
+A public engineering reference for developing and validating PCIe endpoints on
+Artix-7 FPGA boards. Version 2 replaces unsupported generalizations with documented
+behavior, explicit interface contracts and reproducible verification.
 
-Vendor-agnostic. No proprietary code. No anti-cheat specifics. Provided as
-engineering reference for educational and research use.
+**Edition:** 2.0, revised 14 November 2026.
 
-## Download
+## Read the guide
 
-**[Download the latest guide (PDF)](Nexus_DMA_Firmware_Guide.pdf?raw=true)**
+- [Download version 2 (PDF)](Sylnar_DMA_Firmware_Guide_v2.pdf?raw=true)
+- [Printable HTML edition](docs/firmware-guide-v2.html)
+- [Editable guide source](guide/guide-v2.txt)
+- [Version 2 changes](CHANGELOG.md)
 
-Direct link, no signup required.
+The version 1 PDF has been replaced by the version 2 download above.
+The original disclaimer is retained, with its wording
+unchanged, in both editions and in [the disclaimer source](guide/disclaimer.txt).
 
-## What is in the guide
+## Coverage
 
-56 pages covering:
+1. Scope and evidence: specified, implemented, simulated and hardware-verified.
+2. Board identification, cabling, host/operator roles and recovery planning.
+3. A controlled first-build and programming loop.
+4. Configuration space and register contracts.
+5. Capabilities, interrupts and power/reset behavior.
+6. DMA addresses, mapping lifetime and IOMMU behavior.
+7. Transaction tracking, scatter/gather and completion correctness.
+8. HDL ownership, simultaneous updates, CDC and reset.
+9. FIFO sizing, width conversion, arbitration and backpressure.
+10. Public class-interface conformance and truthful completion semantics.
+11. Reproducible Vivado builds and artifact manifests.
+12. Timing constraints, implementation quality and acceptance.
+13. Board-specific programming, running-build verification and rollback.
+14. Read-only Windows and Linux diagnostics.
+15. A hardware verification and release matrix.
+16. Symptom-driven troubleshooting.
+17. Compatibility and support intake.
+18. Version 1 corrections, checklists, glossary and public primary references.
 
-- Hardware platform and toolchain (Vivado, Python, NexusForge, JTAG)
-- The donor concept (what to buy, what to avoid, Arbor + lspci capture)
-- Configuration space and capability chains
-- BDF stability and the heartbeat tell
-- MSI behavior
-- IOMMU realities (the Hyper-V / VBS / KDP chain)
-- AHCI / SATA emulation
-- ATA command engine architecture
-- Disk image, filesystem, and the partmgr wall
-- Writes and persistence
-- SystemVerilog pitfalls
-- Vivado build reality
-- Per-board identity (DNA binding)
-- Flashing and deployment
-- Live verification probes
-- Common errors and diagnostics (Appendix A)
-- Reading list (Appendix B)
-- Glossary (Appendix C)
-- A Quick Start "first build, step by step" section for beginners
+This guide describes general engineering practice. It does not disclose Sylnar's
+private implementation, identify reference hardware, or certify compatibility for
+a commercial product. Current support and commercial terms belong to the official
+product documentation and private support process.
 
-## Who is this for
+## Rebuild
 
-Engineers who already know HDL, Vivado, and PCIe at the spec level and want a
-consolidated reference for the non-obvious problems that only show up after
-weeks of hands-on work: silent multi-driver synthesis bugs, transient BDF
-events, partmgr's hardcoded LBA 2 read, fastfat's directory-corruption rules,
-the difference between IOMMU presence and IOMMU enforcement.
+Use a Python environment with the dependency in `scripts/requirements-guide.txt`:
 
-If you do not know what a TLP, BAR, or capability pointer is, read the PCIe
-Base Specification first.
+```powershell
+python -m pip install -r scripts/requirements-guide.txt
+python scripts/build_guide.py
+```
 
-## Companion tool: Sylnar Tool
+The builder creates the PDF and `docs/firmware-guide-v2.html` from the editable
+source. Windows Arial/Consolas fonts are used when available; portable standard
+PDF fonts are the fallback. PDF pagination can differ with the installed fonts.
 
-[Sylnar Tool](https://sylnar.com/sylnar-tool) is the Windows GUI for FPGA DMA
-board management. It detects boards, reads Device DNA, installs CH347 and FT601
-drivers, flashes firmware, and tests DMA speed. Download it from the
-[official NexusForge releases](https://github.com/Sylnar/NexusForge/releases/tag/v1.1.39).
+## Official resources
 
-## Companion web guides
+- [Sylnar compatibility](https://sylnar.com/compatibility)
+- [Sylnar Tool](https://sylnar.com/sylnar-tool)
+- [Community and private support](https://sylnar.com/discord)
 
-The [DMA firmware guide collection](https://nexusforge-dev.github.io/dma-firmware-guide/)
-includes focused, linkable references for:
+The existing short companion pages in `docs/` are separate from the version 2
+firmware engineering guide.
 
-- [Artix-7 DMA firmware compatibility and flashing](https://nexusforge-dev.github.io/dma-firmware-guide/artix-7-dma-firmware.html)
-- [Sylnar Tool board management](https://nexusforge-dev.github.io/dma-firmware-guide/sylnar-tool-guide.html)
-- [Second-PC DMA setup](https://nexusforge-dev.github.io/dma-firmware-guide/second-pc-dma-setup.html)
-- [CS2 DMA cheats and ESP](https://nexusforge-dev.github.io/dma-firmware-guide/cs2-dma-cheats.html)
-- [Wardogs ESP and DMA overlay](https://nexusforge-dev.github.io/dma-firmware-guide/wardogs-esp-guide.html)
+## Distribution
 
-Current Sylnar resources:
-
-- [SylnarCore Artix-7 DMA firmware](https://sylnar.com/sylnarcore)
-- [Sylnar CS2 cheats and ESP](https://sylnar.com/cs2)
-- [Sylnar Wardogs ESP](https://sylnar.com/wardogs)
-- [DMA board and BIOS compatibility](https://sylnar.com/compatibility)
-
-## Community
-
-Join Sylnar on Discord for questions, build help, and future revisions:
-
-**[discord.gg/sylnar](https://discord.gg/sylnar)**
-
-## Updates
-
-Open this repository's Releases page (or watch it on GitHub) to be notified
-when a new revision of the guide is published.
-
-## Disclaimer
-
-The guide is provided for educational and research purposes only. The author
-makes no warranty and accepts no liability for any use of the techniques
-described. The full disclaimer is on the second page of the PDF and applies to
-any use of this material. Redistribution and modification of the PDF is
-permitted for non-commercial purposes provided the disclaimer remains attached.
-Commercial redistribution requires prior written consent of the author.
+The original disclaimer remains attached to the revised guide. Non-commercial
+redistribution and modification are subject to that disclaimer; commercial
+redistribution requires the author's prior written consent. Read the full
+disclaimer in the guide.
