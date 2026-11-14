@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://nexusforge-dev.github.io/dma-firmware-guide/sitemap.xml
