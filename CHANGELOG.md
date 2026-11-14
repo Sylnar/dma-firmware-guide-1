@@ -1,3 +1,18 @@
+# Version 2.1 - 14 November 2026
+
+Restored the hands-on build-and-emulate focus that was missing from 2.0.
+
+- Added a pinned public 75T reference-project walkthrough with actual paths,
+  Vivado generation/build commands, output locations and acceptance steps.
+- Added an original register-device HDL example, a self-checking testbench and
+  an optional Linux BAR verification tool. The HDL passed 56 checks in Vivado
+  Simulator 2022.2. Full-board and hardware results are not claimed.
+- Added the step-by-step reference-device emulation workflow: capture, register
+  workbook, configuration/IP, register behavior, functional operations, interrupts,
+  reset and comparison tests.
+- Included the full example source in both the PDF and the repository.
+- Added the direct Sylnar Discord link on the PDF cover, HTML header and closing page.
+
 # Version 2.0 - 14 November 2026
 
 Revised the public firmware engineering guide and added editable source, a

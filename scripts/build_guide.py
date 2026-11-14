@@ -21,12 +21,26 @@ PDF = ROOT / 'Sylnar_DMA_Firmware_Guide_v2.pdf'
 HTML = ROOT / 'docs' / 'firmware-guide-v2.html'
 
 
+def source_text():
+    text = TEXT.read_text(encoding='utf-8')
+    labs = (ROOT / 'guide' / 'hands-on.txt').read_text(encoding='utf-8')
+    return text.replace('# 4. Configuration space as an interface',
+                        labs + '\n\n# 4. Configuration space as an interface', 1)
+
+
 def blocks(text):
     lines = text.splitlines()
     i = 0
     while i < len(lines):
         line = lines[i].strip()
         i += 1
+        if line.startswith('@include-code '):
+            name = line.removeprefix('@include-code ').strip()
+            path = (ROOT / name).resolve()
+            if not path.is_relative_to(ROOT.resolve()):
+                raise ValueError('Code include outside repository')
+            yield 'code', path.read_text(encoding='utf-8').rstrip()
+            continue
         if not line or line.startswith('@'):
             continue
         if line.startswith('```'):
@@ -88,8 +102,8 @@ def build_pdf(content, disclaimer):
                                     textColor=ink, spaceAfter=7),
     }
     doc = GuideDoc(str(PDF), pagesize=A4, leftMargin=51, rightMargin=51,
-                   topMargin=59, bottomMargin=53, title='PCIe DMA Firmware Engineering - Version 2.0',
-                   author='Sylnar', subject='Public engineering reference',
+                   topMargin=59, bottomMargin=53, title='PCIe DMA Firmware Engineering - Version 2.1',
+                   author='Sylnar', subject='Step-by-step firmware engineering and public reference',
                    allowSplitting=True)
     frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id='normal',
                   leftPadding=0, rightPadding=0, topPadding=0, bottomPadding=0)
@@ -105,7 +119,7 @@ def build_pdf(content, disclaimer):
             canvas.drawString(51, h-27, 'SYLNAR / ENGINEERING REFERENCE')
             canvas.setFillColor(muted)
             canvas.setFont(body, 8)
-            canvas.drawRightString(w-51, h-27, 'VERSION 2.0')
+            canvas.drawRightString(w-51, h-27, 'VERSION 2.1')
         canvas.setFont(body, 8)
         canvas.setFillColor(muted)
         canvas.drawString(51, 30, 'PUBLIC EDITION  |  14 NOVEMBER 2026')
@@ -117,11 +131,12 @@ def build_pdf(content, disclaimer):
     kicker = ParagraphStyle('Kicker', fontName=bold, fontSize=11, leading=15, textColor=teal, spaceAfter=17)
     story = [Spacer(1, 79), Paragraph('SYLNAR / COMMUNITY GUIDE', kicker),
              Paragraph('PCIe DMA<br/>Firmware<br/>Engineering', title),
-             Paragraph('Version 2.0', kicker),
-             Paragraph('Build deliberately. Verify behavior.<br/>Keep the evidence.', deck),
-             Spacer(1, 25), Paragraph('A public reference for Artix-7 endpoint development, host integration, '
+             Paragraph('Version 2.1', kicker),
+             Paragraph('Create firmware.<br/>Emulate a device.<br/>Verify it step by step.', deck),
+             Spacer(1, 25), Paragraph('A practical guide with build commands, original HDL, simulation, device-interface implementation, '
              'DMA correctness, HDL quality, reproducible builds and hardware validation.', styles['p']),
-             Spacer(1, 30), Paragraph('Revised 14 November 2026<br/>Published by Sylnar for the community.', styles['p']),
+             Spacer(1, 18), Paragraph('<link href="https://discord.gg/sylnar" color="#008c7c">Join the Sylnar Discord: discord.gg/sylnar</link>', styles['p']),
+             Spacer(1, 18), Paragraph('Revised 14 November 2026<br/>Published by Sylnar for the community.', styles['p']),
              PageBreak(), Paragraph('Original disclaimer', styles['h1']),
              Paragraph('The version 1 disclaimer is retained below without changing its wording.', styles['p'])]
     # Preserve the source wording; PDF line wrapping is necessarily different.
@@ -129,8 +144,8 @@ def build_pdf(content, disclaimer):
     story.extend([Paragraph(html.escape(legal_text), styles['legal']), PageBreak(),
                   Paragraph('Contents', styles['h1'])])
     toc = TableOfContents()
-    toc.levelStyles = [ParagraphStyle('TOC', fontName=body, fontSize=9.8, leading=14,
-                                      textColor=ink, leftIndent=0, firstLineIndent=0, spaceBefore=1)]
+    toc.levelStyles = [ParagraphStyle('TOC', fontName=body, fontSize=9.2, leading=12.5,
+                                      textColor=ink, leftIndent=0, firstLineIndent=0, spaceBefore=0)]
     story.extend([toc, PageBreak()])
     code_style = ParagraphStyle('Code', fontName=mono, fontSize=7.8, leading=11.2,
                                backColor=colors.HexColor('#f0f5f7'), borderPadding=9,
@@ -182,14 +197,14 @@ def build_html(content, disclaimer):
         article.append('</ul>')
     css = '''*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f4f7f9;color:#192b3d;font:17px/1.75 system-ui,sans-serif}header,main,footer{max-width:940px;margin:auto;padding:36px 34px}header{padding-top:65px;border-top:4px solid #008c7c}h1{font-size:48px;line-height:1.1;letter-spacing:-2px;margin:14px 0 20px}h2{font-size:29px;line-height:1.3;border-top:1px solid #cddce2;padding-top:30px;margin-top:48px;scroll-margin-top:25px}h3{font-size:20px;color:#007767;margin-top:28px}p{margin:0 0 17px}a{color:#007767;overflow-wrap:anywhere}.eyebrow{font:700 12px monospace;letter-spacing:2px;color:#007767}.deck{font-size:22px;color:#536579}.actions{display:flex;gap:18px;flex-wrap:wrap;margin-top:25px}.button{background:#007e70;color:white;padding:10px 17px;text-decoration:none;border-radius:5px}.contents{background:white;border:1px solid #d3e0e6;padding:22px;border-radius:7px}.contents a{display:block;padding:3px 0;text-decoration:none}pre{padding:17px;background:#e6eef2;border-radius:5px;overflow-x:auto;font:13px/1.6 Consolas,monospace}li{padding-bottom:5px}.legal{font-size:14px;white-space:pre-wrap;color:#536579}footer{font-size:13px;color:#536579;border-top:1px solid #cddce2}@media print{body{background:white;font-size:10pt;line-height:1.5}header,main,footer{padding:0;max-width:none}.actions{display:none}h2,h3{break-after:avoid}pre{white-space:pre-wrap}a{color:inherit}.contents{break-after:page}header{break-after:page}}'''
     output = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PCIe DMA Firmware Engineering | Version 2 | Sylnar</title><meta name="description" content="Public engineering reference for Artix-7 PCIe endpoints, DMA correctness, build validation and firmware troubleshooting."><style>' + css + '</style></head><body>'
-    output += '<header><div class="eyebrow">SYLNAR / COMMUNITY ENGINEERING GUIDE</div><h1>PCIe DMA Firmware Engineering</h1><p class="deck">Version 2.0 - Build deliberately. Verify behavior. Keep the evidence.</p><p>Revised 14 November 2026. A public engineering reference.</p><div class="actions"><a class="button" href="../Sylnar_DMA_Firmware_Guide_v2.pdf">Download PDF</a><a href="index.html">Guide collection</a></div></header><main><nav class="contents" aria-label="Contents"><strong>Contents</strong>'
+    output += '<header><div class="eyebrow">SYLNAR / COMMUNITY ENGINEERING GUIDE</div><h1>PCIe DMA Firmware Engineering</h1><p class="deck">Version 2.1 - Create firmware and emulate a device, step by step.</p><p>Revised 14 November 2026. A public engineering reference.</p><div class="actions"><a class="button" href="../Sylnar_DMA_Firmware_Guide_v2.pdf">Download PDF</a><a href="https://discord.gg/sylnar">Join Sylnar Discord</a><a href="index.html">Guide collection</a></div></header><main><nav class="contents" aria-label="Contents"><strong>Contents</strong>'
     output += ''.join(toc) + '</nav>' + ''.join(article)
-    output += '<h2>Original disclaimer</h2><p>The version 1 disclaimer is retained below without changing its wording.</p><div class="legal">' + html.escape(disclaimer) + '</div></main><footer>Sylnar / Public engineering reference / Version 2.0</footer></body></html>'
+    output += '<h2>Original disclaimer</h2><p>The version 1 disclaimer is retained below without changing its wording.</p><div class="legal">' + html.escape(disclaimer) + '</div></main><footer>Sylnar / Public engineering reference / Version 2.1</footer></body></html>'
     HTML.write_text(output, encoding='utf-8')
 
 
 if __name__ == '__main__':
-    content = list(blocks(TEXT.read_text(encoding='utf-8')))
+    content = list(blocks(source_text()))
     disclaimer = (ROOT / 'guide' / 'disclaimer.txt').read_text(encoding='utf-8')
     build_html(content, disclaimer)
     build_pdf(content, disclaimer)

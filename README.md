@@ -4,14 +4,34 @@ A public engineering reference for developing and validating PCIe endpoints on
 Artix-7 FPGA boards. Version 2 replaces unsupported generalizations with documented
 behavior, explicit interface contracts and reproducible verification.
 
-**Edition:** 2.0, revised 14 November 2026.
+**Edition:** 2.1, revised 14 November 2026.
 
 ## Read the guide
 
 - [Download version 2 (PDF)](Sylnar_DMA_Firmware_Guide_v2.pdf?raw=true)
 - [Printable HTML edition](docs/firmware-guide-v2.html)
 - [Editable guide source](guide/guide-v2.txt)
+- [Step-by-step build and device-emulation labs](guide/hands-on.txt)
+- [Complete register-device HDL, simulator testbench and Linux host tool](examples/register-lab/)
 - [Version 2 changes](CHANGELOG.md)
+
+**Community:** [Join the Sylnar Discord](https://discord.gg/sylnar).
+The Discord link is also on the PDF cover, HTML header and guide's closing page.
+
+## Build firmware and emulate a device
+
+The guide now includes six hands-on labs: obtain and pin a public board project,
+build its baseline, implement a register device, run its self-checking simulation,
+integrate it into the PCIe project, build and program the image, and verify it from
+the host. The reference-device workflow explains capture, interface specification,
+configuration, register semantics, functional commands, interrupts, reset and
+comparison testing. Complete teaching source is printed in the PDF as well as
+included in `examples/register-lab`.
+
+The original HDL example passed 56 local checks with Vivado Simulator 2022.2.
+Full-board synthesis, programming and host acceptance have not been performed as
+part of this documentation revision. The example uses a public upstream interface
+and no private product implementation or hardware identity.
 
 The version 1 PDF has been replaced by the version 2 download above.
 The original disclaimer is retained, with its wording
@@ -52,8 +72,8 @@ python -m pip install -r scripts/requirements-guide.txt
 python scripts/build_guide.py
 ```
 
-The builder creates the PDF and `docs/firmware-guide-v2.html` from the editable
-source. Windows Arial/Consolas fonts are used when available; portable standard
+The builder creates the PDF and `docs/firmware-guide-v2.html` from both guide text
+files and the included example code. Windows Arial/Consolas fonts are used when available; portable standard
 PDF fonts are the fallback. PDF pagination can differ with the installed fonts.
 
 ## Official resources

@@ -1,5 +1,5 @@
 @title PCIe DMA Firmware Engineering
-@subtitle Version 2.0 | Public engineering reference | 14 November 2026
+@subtitle Version 2.1 | Public engineering reference | 14 November 2026
 
 # 1. Scope and evidence
 This guide explains how to develop, build and validate PCIe endpoints on Artix-7 FPGA boards. It covers platform identification, configuration space, host integration, DMA correctness, interrupts, reset behavior, HDL quality, Vivado builds, flashing and measured verification. It is an engineering reference, rather than a description of a particular commercial firmware.
@@ -17,7 +17,7 @@ These labels are not interchangeable. A module in a source tree might be disable
 Record failures and untested conditions alongside successes. Where a behavior is only observed on a single host, say so. A useful engineering note explains what was tested, what the result establishes and what remains unknown.
 
 ## Read this guide in order
-Beginners should complete Chapter 3 before changing endpoint behavior. Engineers investigating a regression can start with Chapter 16, then use the acceptance matrix in Chapter 15. Public references are collected at the end. Documentation for the exact FPGA, board revision and IP version takes precedence over examples here.
+Beginners should complete Chapter 3, then follow Labs 1 through 6 to create, simulate, integrate, build, program and verify firmware. Lab 5 explains reference-device emulation step by step. Complete example HDL and its self-checking testbench are included after the labs. Engineers investigating a regression can start with Chapter 16, then use the acceptance matrix in Chapter 15. Documentation for the exact FPGA, board revision and IP version takes precedence over examples here.
 
 # 2. Hardware, topology and compatibility
 Separate the host role from the operator role. The host contains the FPGA card in a PCIe slot and enumerates its endpoint. The operator runs the build, programmer and any supported external management tools. Two physical machines make recovery and observation easier, but the transport layout remains board-specific.
@@ -433,3 +433,8 @@ The following are public primary sources used for the corrections and technical 
 [R8] AMD UG908: Programming Configuration Memory Devices. https://docs.amd.com/r/en-US/ug908-vivado-programming-debugging/Programming-Configuration-Memory-Devices
 [R9] pciutils: lspci manual source. https://github.com/pciutils/pciutils/blob/master/lspci.man
 [R10] Microsoft: Bug Check 0x133 DPC_WATCHDOG_VIOLATION. https://learn.microsoft.com/en-us/windows-hardware/drivers/debugger/bug-check-0x133-dpc-watchdog-violation
+[R11] Ulf Frisk: PCILeech FPGA, pinned public source used for the worked board integration. https://github.com/ufrisk/pcileech-fpga/tree/c538c4170678c13f723dc921905fb81ff3c71d8e/CaptainDMA/75t484_x1
+
+# Community and next steps
+Join the Sylnar Discord for guide questions and support: https://discord.gg/sylnar
+Read current compatibility information at https://sylnar.com/compatibility . Share only redacted diagnostics in public channels; use private tickets for board-specific information. The source and examples for this guide are at https://github.com/Sylnar/dma-firmware-guide-1 .
