@@ -21,7 +21,4 @@ when following the workshops; this repository contains only the PDF and README.
 
 **[Join the Sylnar Discord](https://discord.gg/sylnar)** for questions and support.
 
-The HDL example passed 56 simulation checks. The offline audit and conversion
-examples were also checked with synthetic inputs; capture read-loop tests used
-mocks. Physical reference-card capture and full-board acceptance are not claimed.
-The original disclaimer and distribution terms remain attached to the PDF.
+
